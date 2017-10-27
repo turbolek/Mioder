@@ -5,8 +5,13 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
-    @user.save
-    redirect_to root_path
+    if @user.save
+      flash[:success] = "Pomyślnie utworzono nowe konto"
+      redirect_to products_path
+    else
+      flash.now[:danger] = "Nie udało się pomyślnie utworzyć konta. Sprawdź czy wprowadzone dane są poprawne."
+      render 'new'
+    end
   end
   
   private
