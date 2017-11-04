@@ -15,6 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to "Produkty", products_path %></li>
+        <li><%= link_to "Użytkownicy", users_path %></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Akcje <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -23,10 +24,15 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Koszyk <i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
-        <li><a href="#">Załóż konto</a></li>
-        <li><a href="#">Zaloguj się</a></li>
-        <li><a href="#">Wyloguj</a></li>
+        <% if !logged_in? %>
+          <li><%= link_to "Załóż konto", signup_path %></li>
+          <li><%= link_to "Zaloguj się", login_path %></li>
+        <%else%>
+          <li><%= link_to order_path(current_user.orders.find_by(status: "cart")) do %>
+            Koszyk <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            <% end %></li>
+          <li><%= link_to "Wyloguj", logout_path, method: :delete %></li>
+        <%end%>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

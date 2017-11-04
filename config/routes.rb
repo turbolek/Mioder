@@ -9,6 +9,13 @@ Rails.application.routes.draw do
   
   get 'signup', to: 'users#new'
   resources :users, except: [:new]
+  post 'add_to_cart', to: 'products#add_to_cart'
+  
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  
+  resources :orders
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

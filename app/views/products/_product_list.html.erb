@@ -4,6 +4,10 @@
             <div class = "well">
                 <h4><%= link_to product.name, product_path(product) %></h4>
                 Cena: <%= product.price %> zł | Wielkość Opakowania: <%= product.volume %> | Dostępność: <%= product.availability %>
+                
+                <%= link_to add_to_cart_path(product: product, order: current_user.orders.find_by(status: 'cart'), quantity: 1), method: :post do %>
+                  <div class="btn btn-warning"><i class="fa fa-shopping-cart" aria-hidden="true"></i></div>
+                <% end %>
             </div>
         </div>
     </div>
